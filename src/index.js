@@ -1,5 +1,3 @@
-import fs from "fs";
-
 const express = require("express");
 const displayRoutes = require("express-routemap");
 const cors = require("cors");
