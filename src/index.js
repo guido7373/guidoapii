@@ -7,7 +7,7 @@ const displayRoutes = require("express-routemap");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const MONGO_URI = "mongodb+srv://guido:guido@guido0.ybbt6ma.mongodb.net/guido?retryWrites=true&w=majority";
+const MONGO_URI = "mongodb+srv://guido:guido@guido0.ybbt6ma.mongodb.net/?retryWrites=true&w=majority";
 
 const connectDB = async () => {
   try {
