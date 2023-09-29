@@ -66,7 +66,7 @@ app.post("/books", (req, res) => {
   };
   data.books.push(newBook);
   writeData(data);
-  res.json(newBook);
+  return res.json(newBook);
 });
 
 app.listen(PORT, () => {
