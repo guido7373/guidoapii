@@ -57,6 +57,18 @@ app.get(`/${BASE_PREFIX}/data`, async (req, res) => {
   }
 });
 
+app.post("/books", (req, res) => {
+  const data = readData();
+  const body = req.body;
+  const newBook = {
+    id: data.books.length + 1,
+    ...body,
+  };
+  data.books.push(newBook);
+  writeData(data);
+  res.json(newBook);
+});
+
 app.listen(PORT, () => {
   displayRoutes(app);
   console.log(`API RUNNING ON PORT ${PORT}`);
