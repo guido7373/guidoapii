@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const displayRoutes = require("express-routemap");
 
-const connectDB = require("./db");
+const connectDB = require("db");
 
 connectDB();
 
