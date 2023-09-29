@@ -57,6 +57,15 @@ app.get(`/`, (req, res) => {
 //  }
 //});
 
+const readData = () => {
+  try {
+    const data = fs.readFileSync("./db.json");
+    return JSON.parse(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 app.post("/books", (req, res) => {
   const data = readData();
   const body = req.body;
