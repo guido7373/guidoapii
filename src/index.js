@@ -1,8 +1,7 @@
 const express = require("express");
 const displayRoutes = require("express-routemap");
 const cors = require("cors");
-//const { MongoClient } = require("mongodb"); // Importa MongoClient de mongodb
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require("mongodb"); // Importa MongoClient de mongodb
 
 const PORT = process.env.PORT || 8080;
 
@@ -24,17 +23,9 @@ app.get(`/`, (req, res) => {
 });
 
 // Mueve la conexión a la base de datos fuera de la ruta
-//const client = new MongoClient(uri, {
-//  useNewUrlParser: true,
-//  useUnifiedTopology: true,
-//});
-
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 async function connectToDatabase() {
