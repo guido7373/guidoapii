@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// URL de conexión a MongoDB Atlass
+// URL de conexión a MongoDB Atlas
 const uri = "mongodb+srv://guido:guido@guido0.ybbt6ma.mongodb.net/?retryWrites=true&w=majority";
 
 app.use("/static", express.static(`${__dirname}/public`));
@@ -28,13 +28,20 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
+
+// Llama a la función para conectar a la base de datos al iniciar la aplicación
+connectToDatabase();
+
 app.get(`/${BASE_PREFIX}/data`, async (req, res) => {
   try {
-    // Conecta al cliente de MongoDB una vez al inicio de la aplicación
-    if (!client.isConnected()) {
-      await client.connect();
-    }
-
     // Accede a la base de datos y la colección
     const database = client.db("guido");
     const collection = database.collection("guidocolec");
