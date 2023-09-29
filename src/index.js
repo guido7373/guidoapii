@@ -1,44 +1,25 @@
-const express = require("express");
-const displayRoutes = require("express-routemap");
-const cors = require("cors");
-const { MongoClient } = require("mongodb"); // Importa MongoClient de mongodb
+require("dotenv").config();
 
-const PORT = process.env.PORT || 8080;
+const express = require("express");
+const cors = require("cors");
+
+const displayRoutes = require("express-routemap");
+
+const connectDB = require("./db");
+
+connectDB();
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 const BASE_PREFIX = process.env.BASE_PREFIX || "api";
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-// URL de conexión a MongoDB Atlas
-const uri = "mongodb+srv://guido:guido@guido0.ybbt6ma.mongodb.net/?retryWrites=true&w=majority";
-
-app.use("/static", express.static(`${__dirname}/public`));
+app.use(express.json());
 
 app.get(`/`, (req, res) => {
   return res.json({ message: `API DEPLOY SUCCESS` });
 });
-
-// Mueve la conexión a la base de datos fuera de la ruta
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-  }
-}
-
-// Llama a la función para conectar a la base de datos al iniciar la aplicación
-connectToDatabase();
 
 app.get(`/${BASE_PREFIX}/data`, async (req, res) => {
   try {
