@@ -38,6 +38,22 @@ const connectDB = async () => {
         res.status(500).json({ error: 'Error al obtener datos' });
       }
     });
+
+    app.get(`/${BASE_PREFIX}/menu`, async (req, res) => {
+      try {
+        // Accede a la base de datos y la colección usando mongoose
+        const collection = conn.connection.collection("menu");
+    
+        // Consulta los registros de la colección
+        const datos = await collection.find({}, menu).toArray();
+    
+        // Envía los datos como respuesta en formato JSON
+        res.json(datos);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+        res.status(500).json({ error: 'Error al obtener datos' });
+      }
+    });
     
     app.listen(PORT, () => {
       displayRoutes(app);
