@@ -45,8 +45,8 @@ const connectDB = async () => {
         const collection = conn.connection.collection("menu");
     
         // Consulta los registros de la colección
-        const datos = await collection.find({}, menu).toArray();
-    
+        const datos = await collection.find({}, { _id: 0, menu: 1 }).toArray();
+   
         // Envía los datos como respuesta en formato JSON
         res.json(datos);
       } catch (error) {
